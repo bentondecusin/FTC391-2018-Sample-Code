@@ -41,27 +41,32 @@ public class BentonAuto extends OpMode{
     public void loop() {
 if(runTime.time() < 14 )
 {
- dick.setPower(-0.75);
+ dick.setPower(-0.75);//lefting mech extending;robot lowering down
 }
-if(runTime.time() > 14 && runTime.time() < 17){
-        dick.setPower(0);
+if(runTime.time() > 14 && runTime.time() < 16){
+        dick.setPower(0);//lifting mech stops
         drive[1].setPower(5);
-        drive[0].setPower(5);
+        drive[0].setPower(5);//counter clockwise turning
 }
-if(runTime.time() > 17 && runTime.time() < 20)
+if(runTime.time() > 16 && runTime.time() < 17)
 {
 dick.setPower(0);
 drive[1].setPower(5);
-drive[0].setPower(-5);
+drive[0].setPower(-5);//move forward
 }
-if(runTime.time() > 20 && runTime.time() < 25)
+if(runTime.time() > 17 && runTime.time() < 18){
+
+drive[1].setPower(-5);
+drive[0].setPower(-5);// clockwise turning; direction adjusting 
+}
+if(runTime.time() > 18 && runTime.time() < 23)
 {
-dick.setPower(0.75);
+dick.setPower(0.75);//lifting mech retracts
 drive[1].setPower(0);
 drive[0].setPower(0);
 }
-if(runTime.time() > 25){
-  dick.setPower(0);
+if(runTime.time() > 23){
+  dick.setPower(0);//lifting mech stops
 }
 
 
