@@ -1,15 +1,12 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Lamda-Octo")
+@TeleOp(name="Lambda-Octo")
 
-public class LamdaOcto extends LinearOpMode {
+public class LambdaOcto extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     //a bunch of motors
@@ -17,11 +14,13 @@ public class LamdaOcto extends LinearOpMode {
     private DcMotor rightFront = null;
     private DcMotor leftBack = null;
     private DcMotor rightBack = null;
-    int p = 3; //default power
+    int p = 1; //default power
     float x = 0;//default x-coord
     float y = 0;//default y-coord
     String direction = "static";//default direction
-    
+    public void regulateSpeed(){
+
+    }
     public String directionSetting(float x, float y/*the parameters are x and y*/){
 
         if (x >0.4 & y<-0.4/*downright*/){
@@ -117,8 +116,8 @@ public class LamdaOcto extends LinearOpMode {
         telemetry.update();
         //configuration
         leftFront = hardwareMap.get(DcMotor.class, "mot0");
-        leftBack = hardwareMap.get(DcMotor.class, "mot1");
-        rightFront = hardwareMap.get(DcMotor.class, "mot2");
+        leftBack = hardwareMap.get(DcMotor.class, "mot2");
+        rightFront = hardwareMap.get(DcMotor.class, "mot1");
         rightBack = hardwareMap.get(DcMotor.class, "mot3");
 
         //set rotational direction
@@ -132,7 +131,7 @@ public class LamdaOcto extends LinearOpMode {
         runtime.reset();
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()/*Following expressions will keep being executed*/) {
-            float horizontal = gamepad1.right_stick_x;//parameter horizontal 
+            float horizontal = gamepad1.right_stick_x;//parameter horizontal
             float vertical = - gamepad1.right_stick_y;//parameter vertical and sign conventional***
             direction = directionSetting(horizontal,vertical);//input
             move();
