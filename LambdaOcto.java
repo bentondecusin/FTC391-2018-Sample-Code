@@ -51,6 +51,15 @@ public class LambdaOcto extends LinearOpMode {
         if (y <0.4 & y > -0.4 & x < 0.4 & x > -0.4/*null*/){
             return direction = "static";
         }
+
+        if (gamepad1.dpad_left){
+            return direction = "CO";//stands for counter clockwise
+        }
+        if (gamepad1.dpad_right){
+            return direction = "CL";//stands for clockwise
+        }
+
+
         return direction;
     }
     public void move(){
@@ -108,6 +117,21 @@ public class LambdaOcto extends LinearOpMode {
             rightFront.setPower(-.7*p);
             rightBack.setPower(-.7*p);
         }
+
+        if (direction == "CO"){
+            leftFront.setPower(-.7*p);
+            leftBack.setPower(-.7*p);
+            rightFront.setPower(+.7*p);
+            rightBack.setPower(+.7*p);
+        }
+
+        if (direction == "CC"){
+            leftFront.setPower(+.7*p);
+            leftBack.setPower(+.7*p);
+            rightFront.setPower(-.7*p);
+            rightBack.setPower(-.7*p);
+        }
+
     }
 
     @Override
