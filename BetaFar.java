@@ -155,7 +155,7 @@ public class BetaFar extends LinearOpMode {
         waitForStart();
     }
 
-    public void linearMove(double dX){//dx means displacement
+    public void linearForward(double dX){//dx means displacement
         runTime.reset();
         left.setPower(.5);//power depends on the the robot and case studies are needed
         right.setPower(.5);
@@ -166,10 +166,32 @@ public class BetaFar extends LinearOpMode {
         left.setPower(0);
         right.setPower(0);
     }
-    public void angularMove(double dA){//dA means change in angular degree
+    public void linearBackward(double dX){//dx means displacement
+        runTime.reset();
+        left.setPower(-.5);//power depends on the the robot and case studies are needed
+        right.setPower(-.5);
+        while (runTime.seconds()<dX){
+            telemetry.addData("time",runTime.seconds());
+            telemetry.update();
+        }
+        left.setPower(0);
+        right.setPower(0);
+    }
+    public void angularClockwise(double dA){//dA means change in angular degree
         runTime.reset();;
         left.setPower(.5);
         right.setPower(-.5);//power depends on the the robot and case studies are needed
+        while (runTime.seconds()<dA){
+            telemetry.addData("time",runTime.seconds());
+            telemetry.update();
+        }
+        left.setPower(0);
+        right.setPower(0);
+    }
+    public void angularCounterClockwise(double dA){//dA means change in angular degree
+        runTime.reset();;
+        left.setPower(-.5);
+        right.setPower(.5);//power depends on the the robot and case studies are needed
         while (runTime.seconds()<dA){
             telemetry.addData("time",runTime.seconds());
             telemetry.update();
@@ -185,25 +207,25 @@ public class BetaFar extends LinearOpMode {
     private void bat(String location) {
 
         if (location == "L") {
-            linearMove(5);
-            angularMove(-45);
-            linearMove(10);
-            linearMove(-10);
-            angularMove(-45);
+            linearForward(5);
+            angularCounterClockwise(45);
+            linearForward(10);
+            linearBackward(10);
+            angularCounterClockwise(45);
 
         }
         if (location == "R") {
-            linearMove(5);
-            angularMove(45);
-            linearMove(10);
-            linearMove(-10);
-            angularMove(-135);
+            linearForward(5);
+            angularClockwise(45);
+            linearForward(10);
+            linearBackward(10);
+            angularCounterClockwise(135);
 
         }
         if (location == "C" ||location == "N") {
-            linearMove(10);//in
-            linearMove(-10);//out
-            angularMove(-90);
+            linearForward(10);//in
+            linearBackward(10);//out
+            angularCounterClockwise(90);
 
 
 
@@ -212,9 +234,9 @@ public class BetaFar extends LinearOpMode {
 
     private void homeRun() {
 
-        linearMove(21);
-        angularMove(-45);
-        linearMove(20);
+        linearForward(21);
+        angularCounterClockwise(45);
+        linearForward(20);
         launch.setPosition(20);
     }
 

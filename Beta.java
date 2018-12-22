@@ -44,10 +44,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 
-@Autonomous(name = "Sigma")
+@Autonomous(name = "Beta")
 @Disabled
-
-public class Sigma extends LinearOpMode {
+public class Beta extends LinearOpMode {
     //preparation for these cool vuforia stuffs
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
@@ -59,21 +58,15 @@ public class Sigma extends LinearOpMode {
     String goldLocation;
 
     //configure motors
-    private DcMotor leftFront = null;
-    private DcMotor rightFront = null;
-    private DcMotor leftBack = null;
-    private DcMotor rightBack = null;
+
+    private DcMotor left = null;
+    private DcMotor right = null;
     private DcMotor lift = null;
 
-    int p = 1; //default power
-    float x = 0;//default x-coord
-    float y = 0;//default y-coord
-    String direction = "static";//default direction
+
+
     ElapsedTime runTime = new ElapsedTime();
     double checkpoint1 = 10;
-    double checkpoint2 = 20;
-
-
 
 
 
@@ -137,6 +130,7 @@ public class Sigma extends LinearOpMode {
         parameters.cameraDirection = CameraDirection.BACK;
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
+
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -146,168 +140,79 @@ public class Sigma extends LinearOpMode {
     }
 
 
-    private void configureMotors(){
-        leftFront = hardwareMap.get(DcMotor.class, "mot0");
-        leftBack = hardwareMap.get(DcMotor.class, "mot2");
-        rightFront = hardwareMap.get(DcMotor.class, "mot1");
-        rightBack = hardwareMap.get(DcMotor.class, "mot3");
-       // lift = hardwareMap.get(DcMotor.class,"lift");
+    private void configureMotors() {
 
+        left = hardwareMap.get(DcMotor.class, "mot0");
+         right = hardwareMap.get(DcMotor.class, "mot1");
+         lift = hardwareMap.get(DcMotor.class,"mot2");
         //set rotational direction
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.FORWARD);
+
+         left.setDirection(DcMotor.Direction.FORWARD);
+         right.setDirection(DcMotor.Direction.REVERSE);
+         lift.setDirection(DcMotor.Direction.FORWARD);
+
+
+        waitForStart();
     }
 
-    public void move(String dir, double magnitude){
-        direction = dir;
-        if (direction == "static"){
-            runTime.reset();
-            leftFront.setPower(0);
-            leftBack.setPower(0);
-            rightFront.setPower(0);
-            rightBack.setPower(0);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
+    public void linearMove(int dx){//dx means displacement, dx=1 means moving 1 inch.
+        runTime.reset();
+        left.setPower(.5);//power depends on the the robot and case studies are needed
+        right.setPower(.5);
+        while (runTime.seconds()<dx){
+            telemetry.addData("time",runTime.seconds());
+            telemetry.update();
         }
-        if (direction == "LF"){
-            runTime.reset();
-            leftFront.setPower(0);
-            leftBack.setPower(p);
-            rightFront.setPower(0);
-            rightBack.setPower(p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "RF"){
-            runTime.reset();
-            leftFront.setPower(p);
-            leftBack.setPower(0);
-            rightFront.setPower(p);
-            rightBack.setPower(0);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "LB"){
-            runTime.reset();
-            leftFront.setPower(-p);
-            leftBack.setPower(0);
-            rightFront.setPower(-p);
-            rightBack.setPower(0);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "RB"){
-            runTime.reset();
-            leftFront.setPower(0);
-            leftBack.setPower(-p);
-            rightFront.setPower(0);
-            rightBack.setPower(-p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "RR"){
-            runTime.reset();
-            leftFront.setPower(p);
-            leftBack.setPower(-p);
-            rightFront.setPower(p);
-            rightBack.setPower(-p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "LL"){
-            runTime.reset();
-            leftFront.setPower(-p);
-            leftBack.setPower(p);
-            rightFront.setPower(-p);
-            rightBack.setPower(p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "FF"){
-            runTime.reset();
-            leftFront.setPower(.7*p);
-            leftBack.setPower(.7*p);
-            rightFront.setPower(.7*p);
-            rightBack.setPower(.7*p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-        if (direction == "BB"){
-            runTime.reset();
-            leftFront.setPower(-.7*p);
-            leftBack.setPower(-.7*p);
-            rightFront.setPower(-.7*p);
-            rightBack.setPower(-.7*p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-
-        if (direction == "CO"){
-            runTime.reset();
-            leftFront.setPower(-.7*p);
-            leftBack.setPower(-.7*p);
-            rightFront.setPower(+.7*p);
-            rightBack.setPower(+.7*p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-
-        if (direction == "CC"){
-            runTime.reset();
-            leftFront.setPower(+.7*p);
-            leftBack.setPower(+.7*p);
-            rightFront.setPower(-.7*p);
-            rightBack.setPower(-.7*p);
-            while (runTime.seconds()<magnitude){
-                telemetry.addData("time",runTime.seconds());
-                telemetry.update();
-            }
-        }
-
+        left.setPower(0);
+        right.setPower(0);
     }
-    private void pitch(){//pitch the ball means game starts. lower down, leave the latch, come up right in front of the mineral
+    public void angularMove(int dA){//dA means change in angular degree, dA = mean 1 degree
+        runTime.reset();;
+        left.setPower(.5);
+        right.setPower(.5);//power depends on the the robot and case studies are needed
+        while (runTime.seconds()<dA){
+            telemetry.addData("time",runTime.seconds());
+            telemetry.update();
+        }
+        left.setPower(0);
+        right.setPower(0);
+    }
+
+    private void pitch() {//pitch the ball means game starts. lower down, leave the latch, come up right in front of the mineral
 
     }
 
-    private void bat(){
+    private void bat(String location) {
 
+        if (location == "L") {
+            angularMove(30);
+            linearMove(2);
+        }
+        if (location == "R") {
+            linearMove(2);
+        }
+        if (location == "C" ||location == "N") {
+            linearMove(2);
+            angularMove(30);
+
+        }
     }
 
-    private void homeRun(){
+    private void homeRun() {
 
     }
-
-
 
 
     @Override
     public void runOpMode() {
         configureMotors();
+        sample();
+        bat(goldLocation);
+        homeRun();
 
         }
 
     }
+
 
 

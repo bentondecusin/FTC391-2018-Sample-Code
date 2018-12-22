@@ -30,9 +30,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -44,17 +44,16 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 
-@Autonomous(name = "Sigma")
-@Disabled
+@Autonomous(name = "Far-2")
 
-public class Sigma extends LinearOpMode {
+public class SigmaFar extends LinearOpMode {
     //preparation for these cool vuforia stuffs
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
     private VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
-    private DcMotor core = null;
+
     private static final String VUFORIA_KEY = "AUrb6t//////AAABmZ7sUnVME0wvu2pmOKRP5ilgE5gzg4vWVqHNhc0ef2FEwf9NlosWkTS81UmRvZ0UTHFjPeQYLKL6iY60ZJQcJFcMftURUv/1nA/9YELScRwzltxrUAFpfMA/VE9VTaNPTQQYUfm1Z1wUwY6fAJBwDvZJP+UBqPD0AJxz0Gf8jgcdCVgu4A7VtVdk1PRMTSUkHdOEm+VmXzpjxL9X4d/v81mx3aqJbVc6+qhUD53umiep/wCgl9WxHYY6ZEM2tuS7Eih3TexL24HLFvdEu79t24yTzCFz6du/hB12nfyySO78UWbdlusHuHIv0ZI5/IWh4RigF057FaLWc4F+EluGBkO0c6ygIaciN5fHPS9l7dtj";
     String goldLocation;
 
@@ -64,6 +63,7 @@ public class Sigma extends LinearOpMode {
     private DcMotor leftBack = null;
     private DcMotor rightBack = null;
     private DcMotor lift = null;
+    private Servo ser = null;
 
     int p = 1; //default power
     float x = 0;//default x-coord
@@ -151,6 +151,7 @@ public class Sigma extends LinearOpMode {
         leftBack = hardwareMap.get(DcMotor.class, "mot2");
         rightFront = hardwareMap.get(DcMotor.class, "mot1");
         rightBack = hardwareMap.get(DcMotor.class, "mot3");
+        //ser = hardwareMap.get(Servo.class,"ser");
        // lift = hardwareMap.get(DcMotor.class,"lift");
 
         //set rotational direction
@@ -159,7 +160,9 @@ public class Sigma extends LinearOpMode {
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         rightBack.setDirection(DcMotor.Direction.FORWARD);
     }
+    public void dump(){
 
+    }
     public void move(String dir, double magnitude){
         direction = dir;
         if (direction == "static"){
@@ -172,6 +175,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "LF"){
             runTime.reset();
@@ -183,6 +190,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "RF"){
             runTime.reset();
@@ -194,6 +205,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "LB"){
             runTime.reset();
@@ -205,6 +220,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "RB"){
             runTime.reset();
@@ -216,6 +235,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "RR"){
             runTime.reset();
@@ -227,6 +250,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "LL"){
             runTime.reset();
@@ -238,6 +265,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "FF"){
             runTime.reset();
@@ -249,6 +280,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
         if (direction == "BB"){
             runTime.reset();
@@ -260,6 +295,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
 
         if (direction == "CO"){
@@ -272,6 +311,10 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
 
         if (direction == "CC"){
@@ -284,18 +327,46 @@ public class Sigma extends LinearOpMode {
                 telemetry.addData("time",runTime.seconds());
                 telemetry.update();
             }
+            leftFront.setPower(0);
+            leftBack.setPower(0);
+            rightFront.setPower(0);
+            rightBack.setPower(0);
         }
 
     }
     private void pitch(){//pitch the ball means game starts. lower down, leave the latch, come up right in front of the mineral
+        move("FF",10);
 
     }
 
-    private void bat(){
+    private void bat(String location) {
 
+        if (location == "L") {
+            move("LL",3);
+            move("FF",3);
+            move("BB",3);
+            move("LL",6);
+
+        }
+        if (location == "R") {
+            move("RR",9);
+            move("FF",3);
+            move("BB",3);
+            move("LL",18);
+
+        }
+        if (location == "C" ||location == "N") {
+            move("RR",3);
+            move("FF",3);
+            move("BB",3);
+            move("LL",12);
+
+        }
     }
 
     private void homeRun(){
+        move("RF",30);
+        //dump();
 
     }
 
@@ -305,7 +376,9 @@ public class Sigma extends LinearOpMode {
     @Override
     public void runOpMode() {
         configureMotors();
-
+        pitch();
+        bat(goldLocation);
+        homeRun();
         }
 
     }
