@@ -23,7 +23,7 @@ java
 
 ## Authors
 
-* **Chengyu Benton Li**  [bentondecusin](https://github.com/bentondecusi )
+* **Chengyu Benton Li**  [bentondecusin](https://github.com/bentondecusin )
 
 See also the list of [contributors](https://github.com/bentondecusin/ftc391-2018f/contributors) who participated in this project.
 
