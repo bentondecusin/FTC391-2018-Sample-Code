@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous(name="B Climb Up ")
 
 public class BClimbUp extends OpMode{
-    private DcMotor[] drive = new DcMotor[2];
-    private DcMotor dick = null;
+    private DcMotor[] drive = new DcMotor[2];//naming two driving motors
+    private DcMotor dick = null;//naming the lifting motor
     private int counter = 0;
     
     @Override
