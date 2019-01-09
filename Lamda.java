@@ -52,33 +52,33 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Lamda")
+@Autonomous(name="Lamda")
 
 public class Lamda extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftFront = null;
-    private DcMotor rightFront = null;
-    private DcMotor leftBack = null;
-    private DcMotor rightBack = null;
+    private DcMotor FL = null;
+    private DcMotor FR = null;
+    private DcMotor BL = null;
+    private DcMotor BR = null;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        leftFront  = hardwareMap.get(DcMotor.class, "mot0");
-        leftBack  = hardwareMap.get(DcMotor.class, "mot1");
-        rightFront = hardwareMap.get(DcMotor.class, "mot2");
-        rightBack = hardwareMap.get(DcMotor.class, "mot3");
+        FL  = hardwareMap.get(DcMotor.class, "mot0");
+        FR  = hardwareMap.get(DcMotor.class, "mot1");
+        BL = hardwareMap.get(DcMotor.class, "mot2");
+        BR = hardwareMap.get(DcMotor.class, "mot3");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        leftFront.setDirection(DcMotor.Direction.REVERSE);
-        rightFront.setDirection(DcMotor.Direction.FORWARD);
-        leftBack.setDirection(DcMotor.Direction.REVERSE);
-        rightBack.setDirection(DcMotor.Direction.FORWARD);
+        FL.setDirection(DcMotor.Direction.REVERSE);
+        FR.setDirection(DcMotor.Direction.FORWARD);
+        BL.setDirection(DcMotor.Direction.REVERSE);
+        BR.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -89,10 +89,10 @@ public class Lamda extends LinearOpMode {
 
             // Setup a variable for each drive wheel to save power level for telemetry
 
-                leftFront.setPower(gamepad1.left_stick_x);
-                leftBack.setPower(gamepad1.left_stick_y);
-                rightFront.setPower(gamepad1.right_stick_x);
-                rightBack.setPower(gamepad1.right_stick_y);
+                FL.setPower(gamepad1.right_stick_x);
+                FR.setPower(-gamepad1.right_stick_y);
+                BL.setPower(gamepad1.right_stick_y);
+                BR.setPower(-gamepad1.right_stick_x);
 
 
             }

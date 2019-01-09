@@ -12,7 +12,7 @@ public class BDriving extends OpMode{
     private DcMotor[] drive = new DcMotor[2];
     private DcMotor dick = null;
     private int counter = 0;
-    
+
     @Override
     public void init() {
         drive[0] = hardwareMap.get(DcMotor.class, "mot0");
@@ -27,24 +27,24 @@ public class BDriving extends OpMode{
 
     @Override
     public void init_loop() {
-        
+
     }
 
     @Override
     public void start() {
-        
+
     }
     public ElapsedTime runTime = new ElapsedTime();
 
     public void checkKeys(){
-        
+
     }
-    
+
     @Override
     public void loop() {
-checkKeys();
-drive[0].setPower(gamepad1.left_stick_x+gamepad1.left_stick_y); 
-drive[1].setPower(+gamepad1.left_stick_x-gamepad1.left_stick_y); 
-
+        checkKeys();
+        drive[0].setPower(-gamepad1.left_stick_x+gamepad1.left_stick_y);
+        drive[1].setPower(-gamepad1.left_stick_x-gamepad1.left_stick_y);
+        dick.setPower(gamepad1.right_stick_y);
     }
 }
