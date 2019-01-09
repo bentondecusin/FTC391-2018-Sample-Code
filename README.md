@@ -1,5 +1,5 @@
 # ftc391-2018f
-Team Codes for FTC 2018 Rover Ruckus.
+These are sample team codes of FTC391
 
 ## Prerequisites
 A device that can run Android Studio, Two Android Phones, A robot configured with a rev Expansion Hub, an FTC app (link: https://github.com/ftctechnh/ftc_app)
